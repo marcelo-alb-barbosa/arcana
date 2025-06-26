@@ -208,7 +208,7 @@ button {
 
 /* Tema Arcano (Padrão) */
 .theme-arcano {
-  --deep-black: #0a0a0a;
+  --deep-black: #000000;
   --blood-red: #8b1e24;
   --aged-bone: #d9cba5;
   --bone-dust-gray: #b0b0b0;
@@ -236,7 +236,7 @@ button {
 
 /* Tema Iluminado */
 .theme-iluminado {
-  --deep-black: #faf9f6;
+  --deep-black: #000000;
   --blood-red: #d4af37;
   --aged-bone: #2c1810;
   --bone-dust-gray: #8b7355;
@@ -264,7 +264,7 @@ button {
 
 /* Tema Sangue Lunar */
 .theme-sangue-lunar {
-  --deep-black: #1a0000;
+  --deep-black: #000000;
   --blood-red: #cc0000;
   --aged-bone: #ffcccc;
   --bone-dust-gray: #800000;
@@ -292,7 +292,7 @@ button {
 
 /* Tema Místico */
 .theme-mistico {
-  --deep-black: #1a0d1a;
+  --deep-black: #000000;
   --blood-red: #6a0dad;
   --aged-bone: #e6ccff;
   --bone-dust-gray: #4b0082;
@@ -324,9 +324,13 @@ body {
   color: var(--foreground);
 }
 
-.card,
-.bg-deep-black {
+.card {
   background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+.bg-deep-black {
+  background-color: var(--deep-black);
   border-color: var(--card-border);
 }
 

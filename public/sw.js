@@ -59,7 +59,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // For navigation requests (HTML pages)
+  // For navigation requests (HTML page)
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request)

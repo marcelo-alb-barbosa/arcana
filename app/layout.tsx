@@ -7,6 +7,7 @@ import { IdiomaProvider } from "@/contexts/idioma-context"
 import { ThemeProvider } from "@/contexts/theme-context"
 import { SessionProvider } from "@/components/providers/session-provider"
 import { BirthDateCheckProvider } from "@/components/providers/birth-date-check-provider"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const viewport = {
   width: "device-width",
@@ -284,6 +285,7 @@ export default function RootLayout({
                 <Toaster />
                 <BirthDateCheckProvider />
                 {children}
+                <SpeedInsights />
               </IdiomaProvider>
             </ThemeProvider>
           </NextThemeProvider>

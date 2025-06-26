@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String         @id @default(cuid())
+  name          String?
+  email         String?        @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  isSocialLogin Boolean        @default(false)
+  accounts      Account[]
+  sessions      Session[]
+  profile       Profile?
+  subscriptions Subscription[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Profile {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  dateOfBirth DateTime?
+  birthTime   String?
+  zodiacSign  String?
+  moonSign    String?
+  ascendant   String?
+  region      String    @default("BR") // Default region is Brazil
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// Subscription models
+model Subscription {
+  id                   String   @id @default(cuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stripeCustomerId     String?
+  stripeSubscriptionId String?
+  stripePriceId        String?
+  planId               String // Reference to the plan in the application
+  status               String // active, canceled, past_due, etc.
+  currentPeriodStart   DateTime
+  currentPeriodEnd     DateTime
+  cancelAtPeriodEnd    Boolean  @default(false)
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@index([userId])
+  @@index([stripeSubscriptionId])
+}
+
+model Region {
+  id              String               @id
+  name            String
+  currencyCode    String
+  locale          String
+  active          Boolean              @default(true)
+  prices          RegionalPrice[]
+  regionalContent RegionalPlanContent[]
+}
+
+model Plan {
+  id              String               @id @default(cuid())
+  type            String // basic, premium, pro, etc.
+  active          Boolean              @default(true)
+  popular         Boolean              @default(false)
+  prices          RegionalPrice[]
+  regionalContent RegionalPlanContent[]
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+}
+
+model RegionalPrice {
+  id            String  @id @default(cuid())
+  planId        String
+  plan          Plan    @relation(fields: [planId], references: [id])
+  regionId      String
+  region        Region  @relation(fields: [regionId], references: [id])
+  amount        Int // Amount in smallest currency unit (cents, pence, etc.)
+  interval      String // month, quarter, year
+  stripePriceId String?
+  active        Boolean @default(true)
+
+  @@unique([planId, regionId, interval])
+}
+
+model RegionalPlanContent {
+  id          String  @id @default(cuid())
+  planId      String
+  plan        Plan    @relation(fields: [planId], references: [id])
+  regionId    String
+  region      Region  @relation(fields: [regionId], references: [id])
+  title       String
+  description String
+  features    String[]
+  active      Boolean @default(true)
+
+  @@unique([planId, regionId])
+}

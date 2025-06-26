@@ -1,0 +1,368 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mobile-input-font-size: 16px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-deep-black text-aged-bone font-serifRegular;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevenir zoom em inputs no iOS */
+input,
+textarea,
+select,
+button {
+  font-size: var(--mobile-input-font-size);
+}
+
+@media (min-width: 768px) {
+  input,
+  textarea,
+  select,
+  button {
+    font-size: inherit;
+  }
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.shimmer-text {
+  @apply bg-gradient-to-r from-aged-bone/70 via-aged-bone to-aged-bone/70 bg-clip-text text-transparent;
+  background-size: 200% auto;
+  animation: shimmer 3.5s linear infinite;
+}
+
+/* Helper for subtle corner ornaments */
+.corner-ornament {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: #8b1e24; /* blood-red */
+}
+
+.corner-top-left {
+  top: 1rem;
+  left: 1rem;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+.corner-top-right {
+  top: 1rem;
+  right: 1rem;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+.corner-bottom-left {
+  bottom: 1rem;
+  left: 1rem;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+.corner-bottom-right {
+  bottom: 1rem;
+  right: 1rem;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+/* 3D Card Flip Utilities */
+.perspective {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Safari */
+}
+
+/* Page Transition Classes */
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+
+/* Smooth page transitions */
+.page-transition {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: pageEnter 0.4s ease-out forwards;
+}
+
+@keyframes pageEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading state for navigation */
+.nav-loading {
+  pointer-events: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+/* Smooth link transitions */
+.smooth-link {
+  transition: all 0.2s ease;
+}
+
+.smooth-link:hover {
+  transform: translateY(-1px);
+}
+
+/* Button press animation */
+.btn-press {
+  transition: transform 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.98);
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .mobile-full-height {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .mobile-bottom-spacing {
+    padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+
+  /* Ensure fixed bottom elements don't overlap with safe areas */
+  .mobile-fixed-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 1rem);
+  }
+}
+
+/* Fix for iOS height issues */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Prevent layout shift from text content */
+.min-h-text {
+  min-height: 1.5rem;
+}
+
+/* Tema Arcano (Padrão) */
+.theme-arcano {
+  --deep-black: #0a0a0a;
+  --blood-red: #8b1e24;
+  --aged-bone: #d9cba5;
+  --bone-dust-gray: #b0b0b0;
+
+  --background: var(--deep-black);
+  --foreground: var(--aged-bone);
+
+  --card-bg: #121212;
+  --card-border: rgba(139, 30, 36, 0.3);
+
+  --button-primary: var(--blood-red);
+  --button-primary-hover: #a52a2a;
+  --button-text: var(--aged-bone);
+
+  --input-bg: rgba(10, 10, 10, 0.8);
+  --input-border: rgba(139, 30, 36, 0.5);
+  --input-text: var(--aged-bone);
+
+  --modal-bg: #121212;
+  --modal-border: rgba(139, 30, 36, 0.3);
+
+  --accent-color: var(--blood-red);
+  --accent-light: rgba(139, 30, 36, 0.2);
+}
+
+/* Tema Iluminado */
+.theme-iluminado {
+  --deep-black: #faf9f6;
+  --blood-red: #d4af37;
+  --aged-bone: #2c1810;
+  --bone-dust-gray: #8b7355;
+
+  --background: var(--deep-black);
+  --foreground: var(--aged-bone);
+
+  --card-bg: #ffffff;
+  --card-border: rgba(212, 175, 55, 0.3);
+
+  --button-primary: var(--blood-red);
+  --button-primary-hover: #e6c158;
+  --button-text: #2c1810;
+
+  --input-bg: rgba(250, 249, 246, 0.8);
+  --input-border: rgba(212, 175, 55, 0.5);
+  --input-text: var(--aged-bone);
+
+  --modal-bg: #ffffff;
+  --modal-border: rgba(212, 175, 55, 0.3);
+
+  --accent-color: var(--blood-red);
+  --accent-light: rgba(212, 175, 55, 0.2);
+}
+
+/* Tema Sangue Lunar */
+.theme-sangue-lunar {
+  --deep-black: #1a0000;
+  --blood-red: #cc0000;
+  --aged-bone: #ffcccc;
+  --bone-dust-gray: #800000;
+
+  --background: var(--deep-black);
+  --foreground: var(--aged-bone);
+
+  --card-bg: #2a0000;
+  --card-border: rgba(204, 0, 0, 0.3);
+
+  --button-primary: var(--blood-red);
+  --button-primary-hover: #ff0000;
+  --button-text: var(--aged-bone);
+
+  --input-bg: rgba(26, 0, 0, 0.8);
+  --input-border: rgba(204, 0, 0, 0.5);
+  --input-text: var(--aged-bone);
+
+  --modal-bg: #2a0000;
+  --modal-border: rgba(204, 0, 0, 0.3);
+
+  --accent-color: var(--blood-red);
+  --accent-light: rgba(204, 0, 0, 0.2);
+}
+
+/* Tema Místico */
+.theme-mistico {
+  --deep-black: #1a0d1a;
+  --blood-red: #6a0dad;
+  --aged-bone: #e6ccff;
+  --bone-dust-gray: #4b0082;
+
+  --background: var(--deep-black);
+  --foreground: var(--aged-bone);
+
+  --card-bg: #2a1a2a;
+  --card-border: rgba(106, 13, 173, 0.3);
+
+  --button-primary: var(--blood-red);
+  --button-primary-hover: #8a2be2;
+  --button-text: var(--aged-bone);
+
+  --input-bg: rgba(26, 13, 26, 0.8);
+  --input-border: rgba(106, 13, 173, 0.5);
+  --input-text: var(--aged-bone);
+
+  --modal-bg: #2a1a2a;
+  --modal-border: rgba(106, 13, 173, 0.3);
+
+  --accent-color: var(--blood-red);
+  --accent-light: rgba(106, 13, 173, 0.2);
+}
+
+/* Aplicar variáveis CSS aos elementos */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+.card,
+.bg-deep-black {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+.btn-primary,
+.bg-blood-red {
+  background-color: var(--button-primary);
+  color: var(--button-text);
+}
+
+.btn-primary:hover {
+  background-color: var(--button-primary-hover);
+}
+
+input,
+textarea,
+select {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-text);
+}
+
+.modal,
+.dialog {
+  background-color: var(--modal-bg);
+  border-color: var(--modal-border);
+}
+
+.text-blood-red {
+  color: var(--blood-red);
+}
+
+.text-aged-bone {
+  color: var(--aged-bone);
+}
+
+.text-bone-dust-gray {
+  color: var(--bone-dust-gray);
+}
+
+.border-blood-red {
+  border-color: var(--blood-red);
+}
+
+.bg-blood-red\/20 {
+  background-color: var(--accent-light);
+}

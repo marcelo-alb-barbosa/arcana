@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200">
+  <style>
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.8; }
+    }
+    
+    .outer-circle {
+      animation: rotate 12s linear infinite;
+      transform-origin: center;
+    }
+    
+    .inner-circle {
+      animation: rotate 8s linear infinite reverse;
+      transform-origin: center;
+    }
+    
+    .star {
+      animation: pulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    
+    .moon-dot {
+      animation: fadeInOut 2s ease-in-out infinite;
+    }
+    
+    .moon-dot:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+    
+    .moon-dot:nth-child(3) {
+      animation-delay: 1s;
+    }
+    
+    .moon-dot:nth-child(4) {
+      animation-delay: 1.5s;
+    }
+  </style>
+  
+  <!-- Background -->
+  <circle cx="100" cy="100" r="95" fill="#0A0A0A" />
+  
+  <!-- Outer rotating circle with zodiac symbols -->
+  <g class="outer-circle">
+    <circle cx="100" cy="100" r="85" fill="none" stroke="#8B1E24" stroke-width="2" />
+    <circle cx="100" cy="100" r="80" fill="none" stroke="#D9CBA5" stroke-width="1" stroke-dasharray="5,3" />
+    
+    <!-- Zodiac symbols -->
+    <g transform="translate(100, 100)">
+      <text x="0" y="-70" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♈</text>
+      <text x="35" y="-60.6" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♉</text>
+      <text x="60.6" y="-35" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♊</text>
+      <text x="70" y="0" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♋</text>
+      <text x="60.6" y="35" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♌</text>
+      <text x="35" y="60.6" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♍</text>
+      <text x="0" y="70" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♎</text>
+      <text x="-35" y="60.6" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♏</text>
+      <text x="-60.6" y="35" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♐</text>
+      <text x="-70" y="0" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♑</text>
+      <text x="-60.6" y="-35" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♒</text>
+      <text x="-35" y="-60.6" font-family="serif" font-size="12" fill="#D9CBA5" text-anchor="middle" dominant-baseline="middle">♓</text>
+    </g>
+  </g>
+  
+  <!-- Inner rotating circle with moon phases -->
+  <g class="inner-circle">
+    <circle cx="100" cy="100" r="60" fill="none" stroke="#D9CBA5" stroke-width="1" />
+    
+    <!-- Moon phases -->
+    <circle class="moon-dot" cx="100" cy="40" r="8" fill="#D9CBA5" />
+    <circle class="moon-dot" cx="160" cy="100" r="8" fill="#D9CBA5" />
+    <circle class="moon-dot" cx="100" cy="160" r="8" fill="#D9CBA5" />
+    <circle class="moon-dot" cx="40" cy="100" r="8" fill="#D9CBA5" />
+  </g>
+  
+  <!-- Central pulsing star -->
+  <g class="star" transform="translate(100, 100) scale(0.5)">
+    <path d="M0,-60 L14,18 L-23,-19 L23,-19 L-14,18 Z" fill="#8B1E24" stroke="#D9CBA5" stroke-width="2" />
+  </g>
+  
+  <!-- Loading text -->
+  <text x="100" y="140" font-family="'Cinzel Decorative', serif" font-size="12" fill="#D9CBA5" text-anchor="middle">REVELANDO</text>
+  
+  <!-- Subtle glow effect -->
+  <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+    <feGaussianBlur stdDeviation="3" result="blur" />
+    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+  </filter>
+  
+  <!-- Apply glow to the entire animation -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#D9CBA5" stroke-width="0.5" filter="url(#glow)" />
+</svg>

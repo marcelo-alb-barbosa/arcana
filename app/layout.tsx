@@ -9,6 +9,16 @@ import { SessionProvider } from "@/components/providers/session-provider"
 import { BirthDateCheckProvider } from "@/components/providers/birth-date-check-provider"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
+// Font imports
+import { Cinzel_Decorative } from 'next/font/google'
+
+const cinzel = Cinzel_Decorative({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  display: 'swap',
+  variable: '--font-cinzel',
+})
+
 export const viewport = {
   width: "device-width",
   initialScale: 1,
@@ -35,6 +45,24 @@ export const metadata: Metadata = {
   creator: "ARCANA Studios",
   publisher: "ARCANA Publishing",
 
+  // Additional meta tags
+  other: {
+    "format-detection": "telephone=no",
+    "msapplication-TileColor": "#8B0000",
+    "msapplication-config": "/browserconfig.xml",
+    "application-name": "ARCANA",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "ARCANA",
+    "mobile-web-app-capable": "yes",
+  },
+
+  // Theme configuration
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#8B0000" },
+  ],
+
   // Open Graph / Facebook
   openGraph: {
     type: "website",
@@ -45,6 +73,7 @@ export const metadata: Metadata = {
     title: "ARCANA | Desperte o invisível",
     description: "Uma experiência mística de leitura de cartas de tarô que revela sabedoria ancestral e guia sua jornada espiritual.",
     images: [
+      "/images/background-texture.webp",
       // {
       //   url: "/images/og-image.jpg",
       //   width: 1200,
@@ -196,101 +225,79 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-TileColor" content="#8B0000" />
-        <meta name="msapplication-config" content="/browserconfig.xml" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="preload" as="image" href="/images/background-texture.webp" />
+    <body className={`bg-deep-black text-aged-bone font-serifRegular ${cinzel.variable}`} suppressHydrationWarning itemScope itemType="https://schema.org/WebPage">
+      <SessionProvider>
+        <NextThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+          themes={["dark", "light", "blood", "mystic"]}
+        >
+          <ThemeProvider>
+            <IdiomaProvider>
+              <Toaster />
+              <BirthDateCheckProvider />
+              {children}
+              <SpeedInsights />
+            </IdiomaProvider>
+          </ThemeProvider>
+        </NextThemeProvider>
+      </SessionProvider>
 
-        {/* PWA meta tags */}
-        <meta name="application-name" content="ARCANA" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="ARCANA" />
-        <meta name="mobile-web-app-capable" content="yes" />
+      {/* Service Worker Registration */}
+      <script src="/sw-register.js" defer />
 
-        {/* Service Worker Registration */}
-        <script src="/sw-register.js" defer />
-
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "ARCANA",
-              "description": "ARCANA é uma experiência mística de leitura de cartas de tarô que revela sabedoria ancestral e guia sua jornada espiritual.",
-              "url": "https://arcana-game.com",
-              "applicationCategory": "Entertainment",
-              "genre": "Tarot & Mysticism",
-              "operatingSystem": "Web",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
-              "author": {
-                "@type": "Organization",
-                "name": "ARCANA Studios",
-                "url": "https://arcana-game.com"
-              },
-              "publisher": {
-                "@type": "Organization",
-                "name": "ARCANA Publishing",
-                "logo": {
-                  "@type": "ImageObject",
-                  "url": "https://arcana-game.com/logo.png"
-                }
-              },
-              "screenshot": [
-                {
-                  "@type": "ImageObject",
-                  "url": "https://arcana-game.com/screenshots/home.jpg",
-                  "caption": "ARCANA Home Screen"
-                },
-                {
-                  "@type": "ImageObject",
-                  "url": "https://arcana-game.com/screenshots/reading.jpg",
-                  "caption": "Tarot Reading Experience"
-                }
-              ],
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.8",
-                "ratingCount": "1024"
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "ARCANA",
+            "description": "ARCANA é uma experiência mística de leitura de cartas de tarô que revela sabedoria ancestral e guia sua jornada espiritual.",
+            "url": "https://arcana-game.com",
+            "applicationCategory": "Entertainment",
+            "genre": "Tarot & Mysticism",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "ARCANA Studios",
+              "url": "https://arcana-game.com"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "ARCANA Publishing",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://arcana-game.com/logo.png"
               }
-            })
-          }}
-        />
-      </head>
-      <body className="bg-deep-black text-aged-bone font-serifRegular" suppressHydrationWarning itemScope itemType="https://schema.org/WebPage">
-        <SessionProvider>
-          <NextThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-            themes={["dark", "light", "blood", "mystic"]}
-          >
-            <ThemeProvider>
-              <IdiomaProvider>
-                <Toaster />
-                <BirthDateCheckProvider />
-                {children}
-                <SpeedInsights />
-              </IdiomaProvider>
-            </ThemeProvider>
-          </NextThemeProvider>
-        </SessionProvider>
-      </body>
-    </html>
+            },
+            "screenshot": [
+              {
+                "@type": "ImageObject",
+                "url": "https://arcana-game.com/screenshots/home.jpg",
+                "caption": "ARCANA Home Screen"
+              },
+              {
+                "@type": "ImageObject",
+                "url": "https://arcana-game.com/screenshots/reading.jpg",
+                "caption": "Tarot Reading Experience"
+              }
+            ],
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "ratingCount": "1024"
+            }
+          })
+        }}
+      />
+    </body>
   )
 }

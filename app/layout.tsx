@@ -8,6 +8,20 @@ import { ThemeProvider } from "@/contexts/theme-context"
 import { SessionProvider } from "@/components/providers/session-provider"
 import { BirthDateCheckProvider } from "@/components/providers/birth-date-check-provider"
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  minimumScale: 1,
+  userScalable: true,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#8B0000" },
+  ],
+  colorScheme: "dark",
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://arcana-game.com"),
   title: {
@@ -81,12 +95,6 @@ export const metadata: Metadata = {
   // App manifest
   manifest: "/manifest.json",
 
-  // Theme color
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#8B0000" },
-  ],
-
   // Canonical URL and language alternates
   alternates: {
     canonical: "/",
@@ -123,16 +131,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // Viewport - Improved for accessibility
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    minimumScale: 1,
-    userScalable: true,
-    viewportFit: "cover",
-  },
-
   // Verification
   verification: {
     google: "google-site-verification-code",
@@ -149,7 +147,6 @@ export const metadata: Metadata = {
   category: "Entertainment",
 
   // Other metadata
-  colorScheme: "dark",
   formatDetection: {
     telephone: false,
     date: false,

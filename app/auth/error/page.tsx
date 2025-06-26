@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { PageTransition } from "@/components/arcana/ui/page-transition"
 import { Skull, ArrowLeft, AlertTriangle } from "lucide-react"
@@ -8,7 +8,7 @@ import { SmoothButton } from "@/components/arcana/ui/smooth-button"
 import { Button } from "@/components/ui/button"
 import { useIdioma } from "@/contexts/idioma-context"
 
-export default function AuthErrorPage() {
+function ErrorContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const error = searchParams.get("error")
@@ -117,5 +117,21 @@ export default function AuthErrorPage() {
                 </div>
             </div>
         </PageTransition>
+    )
+}
+
+export default function AuthErrorPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-deep-black text-aged-bone flex flex-col items-center justify-center p-4">
+                <div className="animate-pulse flex flex-col items-center">
+                    <div className="h-16 w-16 rounded-full bg-aged-bone/20 mb-4"></div>
+                    <div className="h-6 w-48 bg-aged-bone/20 rounded mb-2"></div>
+                    <div className="h-4 w-64 bg-aged-bone/20 rounded"></div>
+                </div>
+            </div>
+        }>
+            <ErrorContent />
+        </Suspense>
     )
 }

@@ -28,7 +28,7 @@ export const viewport = {
   viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#8B0000" },
+    { media: "(prefers-color-scheme: light)", color: "#000000" },
   ],
   colorScheme: "dark",
 }
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   // Additional meta tags
   other: {
     "format-detection": "telephone=no",
-    "msapplication-TileColor": "#8B0000",
+    "msapplication-TileColor": "#000000",
     "msapplication-config": "/browserconfig.xml",
     "application-name": "ARCANA",
     "apple-mobile-web-app-capable": "yes",
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   // Theme configuration
   themeColor: [
     { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#8B0000" },
+    { media: "(prefers-color-scheme: light)", color: "#000000" },
   ],
 
   // Open Graph / Facebook
@@ -117,7 +117,7 @@ export const metadata: Metadata = {
       { url: "/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
     ],
     other: [
-      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#8B0000" },
+      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#000000" },
       { rel: "shortcut icon", url: "/favicon.ico" },
     ],
   },

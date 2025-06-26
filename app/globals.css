@@ -8,12 +8,14 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
   @apply bg-deep-black text-aged-bone font-serifRegular;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  overflow-y: hidden;
 }
 
 /* Prevenir zoom em inputs no iOS */
@@ -106,37 +108,42 @@ button {
 /* Page Transition Classes */
 .page-enter {
   opacity: 0;
-  transform: translateY(20px);
 }
 
 .page-enter-active {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 300ms ease-out, transform 300ms ease-out;
+  transition: opacity 300ms ease-out;
 }
 
 .page-exit {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .page-exit-active {
   opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 200ms ease-in, transform 200ms ease-in;
+  transition: opacity 200ms ease-in;
+}
+
+/* Fade animations for splash screen */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 /* Smooth page transitions */
 .page-transition {
   opacity: 0;
-  transform: translateY(20px);
   animation: pageEnter 0.4s ease-out forwards;
 }
 
 @keyframes pageEnter {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -149,20 +156,20 @@ button {
 
 /* Smooth link transitions */
 .smooth-link {
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 
 .smooth-link:hover {
-  transform: translateY(-1px);
+  opacity: 0.8;
 }
 
 /* Button press animation */
 .btn-press {
-  transition: transform 0.1s ease;
+  transition: opacity 0.1s ease;
 }
 
 .btn-press:active {
-  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 /* Mobile optimizations */

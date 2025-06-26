@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter } from "next/navigation"
 import { ActionCard } from "./ui/action-card"
 import { SmoothLink } from "./ui/smooth-link"
@@ -16,10 +16,23 @@ interface HomeScreenProps {
   isAuthenticated: boolean
 }
 
-export function HomeScreen({ username: initialUsername, isAuthenticated: initialAuth }: HomeScreenProps) {
+function HomeScreenContent({ username: initialUsername, isAuthenticated: initialAuth }: HomeScreenProps) {
   const router = useRouter()
-  const { t } = useIdioma()
+  const { t, isLoading } = useIdioma()
   const { data: session, status } = useSession()
+
+  // If idioma is still loading, show a simple loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-deep-black flex flex-col items-center justify-center p-4">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-16 w-16 rounded-full bg-aged-bone/20 mb-4"></div>
+          <div className="h-6 w-48 bg-aged-bone/20 rounded mb-2"></div>
+          <div className="h-4 w-64 bg-aged-bone/20 rounded"></div>
+        </div>
+      </div>
+    )
+  }
 
   // Debug logs
   console.log("🏠 HomeScreen - Rendering with:", {
@@ -104,7 +117,7 @@ export function HomeScreen({ username: initialUsername, isAuthenticated: initial
   }
 
   return (
-    <div className="min-h-screen bg-deep-black">
+    <div className="min-h-screen bg-deep-black overflow-y-auto">
       <Header 
         isAuthenticated={isAuthenticated}
         username={username}
@@ -175,5 +188,21 @@ export function HomeScreen({ username: initialUsername, isAuthenticated: initial
       )}
 
     </div>
+  )
+}
+
+export function HomeScreen(props: HomeScreenProps) {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-deep-black flex flex-col items-center justify-center p-4">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-16 w-16 rounded-full bg-aged-bone/20 mb-4"></div>
+          <div className="h-6 w-48 bg-aged-bone/20 rounded mb-2"></div>
+          <div className="h-4 w-64 bg-aged-bone/20 rounded"></div>
+        </div>
+      </div>
+    }>
+      <HomeScreenContent {...props} />
+    </Suspense>
   )
 }

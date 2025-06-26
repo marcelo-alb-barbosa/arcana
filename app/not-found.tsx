@@ -1,10 +1,11 @@
 "use client"
 
+import { Suspense } from "react"
 import Link from "next/link"
 import { ArrowLeft, Home } from "lucide-react"
 import { useIdioma } from "@/contexts/idioma-context"
 
-export default function NotFound() {
+function NotFoundContent() {
   const { t } = useIdioma()
 
   return (
@@ -53,5 +54,21 @@ export default function NotFound() {
         </div>
       </footer>
     </div>
+  )
+}
+
+export default function NotFound() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-deep-black text-aged-bone flex flex-col items-center justify-center p-4">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-16 w-16 rounded-full bg-aged-bone/20 mb-4"></div>
+          <div className="h-6 w-48 bg-aged-bone/20 rounded mb-2"></div>
+          <div className="h-4 w-64 bg-aged-bone/20 rounded"></div>
+        </div>
+      </div>
+    }>
+      <NotFoundContent />
+    </Suspense>
   )
 }

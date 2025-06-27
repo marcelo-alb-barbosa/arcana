@@ -10,9 +10,9 @@ interface LayoutPerfilProps {
 
 export function LayoutProfile({ children, pageTitle = "Seu Santuário", backLink = "/" }: LayoutPerfilProps) {
   return (
-    <div className="min-h-screen bg-deep-black text-aged-bone flex flex-col items-center relative bg-noise-pattern">
-      {/* Header com botão de voltar */}
-      <div className="w-full flex items-center justify-between p-4 sm:p-6 relative z-10">
+    <div className="bg-deep-black text-aged-bone flex flex-col items-center relative bg-noise-pattern pt-4 sm:pt-6">
+      {/* Page title */}
+      <div className="w-full flex items-center justify-between px-4 sm:px-6 mb-4 sm:mb-6 relative z-10">
         <Link href={backLink} className="text-aged-bone hover:text-blood-red transition-colors">
           <ArrowLeft size={28} strokeWidth={1.5} className="sm:w-8 sm:h-8" />
           <span className="sr-only">Voltar</span>

@@ -223,7 +223,7 @@ export function LoginForm({ onLoginSuccess, isLoading }: LoginFormProps) {
   }
 
   return (
-    <Card className="bg-deep-black/80 border-2 border-blood-red/50 shadow-bone-dust text-aged-bone backdrop-blur-sm w-full max-w-md">
+    <Card className="bg-deep-black/80 border-2 border-blood-red/50 shadow-bone-dust text-aged-bone backdrop-blur-sm w-full max-w-md transform scale-[0.85] sm:scale-90 md:scale-95 lg:scale-100 xl:scale-100 transition-transform duration-200">
       <CardHeader className="text-center">
         <CardTitle className="font-cinzel text-2xl text-aged-bone">
           Retorno ao Santuário

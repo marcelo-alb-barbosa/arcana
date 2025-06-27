@@ -6,8 +6,6 @@ import { ActionCard } from "./ui/action-card"
 import { SmoothLink } from "./ui/smooth-link"
 import { DebugMenu } from "./dev/debug-menu"
 import { Layers, Scroll, ScrollText, Crown } from "lucide-react"
-import { NotificacoesDrawer } from "./ui/notificacoes-drawer"
-import { Header } from "./ui/header"
 import { useIdioma } from "@/contexts/idioma-context"
 import { useSession } from "next-auth/react"
 
@@ -41,63 +39,32 @@ function HomeScreenContent({ username: initialUsername, isAuthenticated: initial
     testMode: process.env.NEXT_PUBLIC_ENABLE_TEST_MODE,
   })
 
-  const [userCredits, setUserCredits] = useState(1500)
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
   const [isAuthenticated, setIsAuthenticated] = useState(initialAuth)
   const [username, setUsername] = useState(initialUsername)
-  const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined)
 
   // Update authentication state when session changes
   useEffect(() => {
     const authStatus = status === "authenticated"
     setIsAuthenticated(authStatus)
     setUsername(session?.user?.name || null)
-    setUserAvatar(session?.user?.image || undefined)
   }, [session, status])
 
-  const [notifications, setNotifications] = useState([
-    {
-      id: "n1",
-      title: "Bônus de Créditos",
-      message: "Você recebeu 500 créditos de boas-vindas!",
-      date: new Date(2025, 0, 15).toISOString(),
-      read: false,
-    },
-    {
-      id: "n2",
-      title: "Novo Arcano Disponível",
-      message: "O arcano 'A Estrela' foi adicionado à sua coleção.",
-      date: new Date(2025, 0, 10).toISOString(),
-      read: true,
-    },
-    {
-      id: "n3",
-      title: "Leitura Recomendada",
-      message: "Baseado no seu profile, recomendamos uma leitura sobre 'Caminhos Profissionais'.",
-      date: new Date(2025, 0, 5).toISOString(),
-      read: false,
-    },
-  ])
-
-  const unreadNotifications = notifications.filter((n) => !n.read).length
+  // Remove the transition class when the page loads
+  useEffect(() => {
+    // Remove the transition-out class if it exists
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove('page-transition-out')
+    }
+  }, [])
 
   // Function to update authentication state
   const handleAuthChange = () => {
     const authStatus = status === "authenticated"
     setIsAuthenticated(authStatus)
     setUsername(session?.user?.name || null)
-    setUserAvatar(session?.user?.image || undefined)
 
     // Force re-render of the page if necessary
     window.location.reload()
-  }
-
-  const markAsRead = (id: string) => {
-    setNotifications((prev) => prev.map((notif) => (notif.id === id ? { ...notif, read: true } : notif)))
-  }
-
-  const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((notif) => ({ ...notif, read: true })))
   }
 
   const handleGrimoireClick = () => {
@@ -109,24 +76,27 @@ function HomeScreenContent({ username: initialUsername, isAuthenticated: initial
 
     if (!currentAuth) {
       console.log("🔮 Redirecting to login")
-      router.push("/login")
+      // Add a smooth transition effect before navigating
+      document.body.classList.add('page-transition-out')
+
+      // Delay navigation to allow transition effect to complete
+      setTimeout(() => {
+        router.push("/login")
+      }, 300)
     } else {
       console.log("🔮 Navigating to grimoire")
-      router.push("/grimorio")
+      // Add a smooth transition effect before navigating
+      document.body.classList.add('page-transition-out')
+
+      // Delay navigation to allow transition effect to complete
+      setTimeout(() => {
+        router.push("/grimorio")
+      }, 300)
     }
   }
 
   return (
-    <div className="min-h-screen bg-deep-black overflow-y-auto">
-      <Header 
-        isAuthenticated={isAuthenticated}
-        username={username}
-        userCredits={userCredits}
-        unreadNotifications={unreadNotifications}
-        onNotificationsOpen={() => setIsNotificationsOpen(true)}
-        userImageUrl={userAvatar}
-      />
-
+    <div className="min-h-screen bg-deep-black">
       <main className="p-4 md:p-6 lg:p-8 bg-noise-pattern">
         <section className="mb-8 md:mb-12 text-center md:text-left">
           <h2 className="font-cinzel text-2xl md:text-3xl text-aged-bone">
@@ -176,16 +146,6 @@ function HomeScreenContent({ username: initialUsername, isAuthenticated: initial
           </div>
         </div>
       </footer>
-
-      {isAuthenticated && (
-        <NotificacoesDrawer
-          notificacoes={notifications}
-          isOpen={isNotificationsOpen}
-          onClose={() => setIsNotificationsOpen(false)}
-          onMarcarLida={markAsRead}
-          onMarcarTodasLidas={markAllAsRead}
-        />
-      )}
 
     </div>
   )

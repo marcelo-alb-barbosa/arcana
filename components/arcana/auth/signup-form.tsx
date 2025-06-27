@@ -224,7 +224,7 @@ export function SignupForm({ onSignupSuccess, isLoading }: SignupFormProps) {
 
 
   return (
-    <Card className="bg-deep-black/80 border-2 border-blood-red/50 shadow-bone-dust text-aged-bone backdrop-blur-sm w-full max-w-md">
+    <Card className="bg-deep-black/80 border-2 border-blood-red/50 shadow-bone-dust text-aged-bone backdrop-blur-sm w-full max-w-md transform scale-[0.85] sm:scale-90 md:scale-95 lg:scale-100 xl:scale-100 transition-transform duration-200">
       <CardHeader className="text-center">
         <CardTitle className="font-cinzel text-2xl text-aged-bone">
           Iniciação nos Mistérios
@@ -382,7 +382,15 @@ export function SignupForm({ onSignupSuccess, isLoading }: SignupFormProps) {
               <TooltipTrigger asChild>
                 <Button
                   variant="link"
-                  onClick={() => router.push('/login')}
+                  onClick={() => {
+                    // Add a smooth transition effect before navigating
+                    document.body.classList.add('page-transition-out')
+
+                    // Delay navigation to allow transition effect to complete
+                    setTimeout(() => {
+                      router.push('/login')
+                    }, 300)
+                  }}
                   className="text-blood-red hover:text-blood-red/80 font-cinzel text-sm"
                   disabled={isSubmitting || isLoading}
                 >

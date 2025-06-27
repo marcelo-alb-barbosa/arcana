@@ -34,7 +34,7 @@ export default function SignupPage() {
 
     return (
         <PageTransition>
-            <div className="min-h-screen bg-deep-black text-aged-bone flex flex-col items-center justify-center p-4 relative bg-noise-pattern mobile-full-height">
+            <div className="h-screen bg-deep-black text-aged-bone flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 relative bg-noise-pattern overflow-hidden">
                 {/* Botão de voltar */}
                 <div className="absolute top-4 left-4 z-10">
                     <SmoothButton
@@ -54,16 +54,16 @@ export default function SignupPage() {
                 <div className="corner-ornament corner-bottom-left opacity-30 hidden sm:block"></div>
                 <div className="corner-ornament corner-bottom-right opacity-30 hidden sm:block"></div>
 
-                <div className="w-full max-w-md space-y-6 sm:space-y-8">
+                <div className="w-full max-w-md space-y-4 sm:space-y-6 md:space-y-8">
                     {/* Header */}
                     <div className="text-center">
-                        <div className="flex justify-center mb-4 sm:mb-6">
-                            <Skull className="h-14 w-14 md:h-20 md:w-20 text-aged-bone/80" strokeWidth={1.5} />
+                        <div className="flex justify-center mb-2 sm:mb-4">
+                            <Skull className="h-10 w-10 sm:h-14 sm:w-14 md:h-16 md:w-16 text-aged-bone/80" strokeWidth={1.5} />
                         </div>
-                        <h1 className="font-cinzel text-3xl md:text-5xl font-bold text-aged-bone shimmer-text mb-1 sm:mb-2">
+                        <h1 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-bold text-aged-bone shimmer-text mb-1">
                             ARCANA
                         </h1>
-                        <p className="font-serifRegular text-sm text-bone-dust-gray">Inicie sua jornada nos arcanos</p>
+                        <p className="font-serifRegular text-xs sm:text-sm text-bone-dust-gray">Inicie sua jornada nos arcanos</p>
                     </div>
 
                     {/* Signup Form */}
@@ -71,7 +71,7 @@ export default function SignupPage() {
 
                     {/* Footer */}
                     <div className="text-center">
-                        <p className="text-xs text-bone-dust-gray/70">
+                        <p className="text-[10px] sm:text-xs text-bone-dust-gray/70">
                             "Apenas aqueles com intenção verdadeira podem despertar o invisível"
                         </p>
                     </div>

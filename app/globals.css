@@ -141,9 +141,20 @@ button {
   animation: pageEnter 0.4s ease-out forwards;
 }
 
+.page-transition-out {
+  opacity: 1;
+  animation: pageExit 0.3s ease-in forwards;
+}
+
 @keyframes pageEnter {
   to {
     opacity: 1;
+  }
+}
+
+@keyframes pageExit {
+  to {
+    opacity: 0;
   }
 }
 
@@ -170,6 +181,40 @@ button {
 
 .btn-press:active {
   opacity: 0.9;
+}
+
+/* Custom scrollbar styling */
+/* Hide scrollbar by default */
+* {
+  scrollbar-width: none; /* Firefox */
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Show scrollbar only in content container */
+.content-container {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(139, 30, 36, 0.3) transparent; /* Firefox */
+}
+
+.content-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.content-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-container::-webkit-scrollbar-thumb {
+  background-color: rgba(139, 30, 36, 0.3);
+  border-radius: 4px;
+}
+
+.content-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(139, 30, 36, 0.5);
 }
 
 /* Mobile optimizations */

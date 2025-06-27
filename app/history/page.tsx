@@ -26,17 +26,7 @@ export default function HistoriaPage() {
     }
 
     return (
-        <div className="min-h-screen bg-deep-black text-aged-bone">
-            <header className="sticky top-0 z-40 flex items-center justify-between p-4 md:p-5 bg-deep-black/80 backdrop-blur-sm border-b border-b-blood-red/20">
-                <Link href="/" className="text-aged-bone hover:text-blood-red transition-colors">
-                    <ArrowLeft size={28} strokeWidth={1.5} className="sm:w-8 sm:h-8" />
-                    <span className="sr-only">{t("history.back")}</span>
-                </Link>
-                <h1 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-aged-bone animate-subtleGlow">
-                    {t("history.title")}
-                </h1>
-                <div className="w-10" />
-            </header>
+        <div className="bg-deep-black text-aged-bone">
 
             <main className="p-4 md:p-6 lg:p-8 bg-noise-pattern">
                 <section className="max-w-4xl mx-auto">

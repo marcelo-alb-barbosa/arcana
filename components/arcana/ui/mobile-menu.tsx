@@ -45,14 +45,27 @@ export function MobileMenu() {
     })
 
     setTimeout(() => {
-      router.push("/login")
+      // Add a smooth transition effect before navigating
+      document.body.classList.add('page-transition-out')
+
+      // Delay navigation to allow transition effect to complete
+      setTimeout(() => {
+        router.push("/login")
+      }, 300)
     }, 1000)
   }
 
   const handleNavigation = (path: string) => {
     console.log("📱 Mobile Menu - Navigating to:", path)
     setIsOpen(false)
-    router.push(path)
+
+    // Add a smooth transition effect before navigating
+    document.body.classList.add('page-transition-out')
+
+    // Delay navigation to allow transition effect to complete
+    setTimeout(() => {
+      router.push(path)
+    }, 300)
   }
 
   const handleGrimoireClick = () => {
@@ -66,10 +79,22 @@ export function MobileMenu() {
 
     if (!currentAuth) {
       console.log("📱 Redirecting to login")
-      router.push("/login")
+      // Add a smooth transition effect before navigating
+      document.body.classList.add('page-transition-out')
+
+      // Delay navigation to allow transition effect to complete
+      setTimeout(() => {
+        router.push("/login")
+      }, 300)
     } else {
       console.log("📱 Navigating to grimoire")
-      router.push("/grimorio")
+      // Add a smooth transition effect before navigating
+      document.body.classList.add('page-transition-out')
+
+      // Delay navigation to allow transition effect to complete
+      setTimeout(() => {
+        router.push("/grimorio")
+      }, 300)
     }
   }
 

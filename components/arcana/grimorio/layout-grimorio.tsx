@@ -7,21 +7,9 @@ interface LayoutGrimorioProps {
   userCredits?: number // Opcional, para consistência
 }
 
-export function LayoutGrimorio({ children, userCredits }: LayoutGrimorioProps) {
+export function LayoutGrimorio({ children }: LayoutGrimorioProps) {
   return (
-    <div className="min-h-screen bg-deep-black text-aged-bone flex flex-col items-center pt-16 sm:pt-20 pb-8 px-4 relative bg-noise-pattern">
-      <div className="absolute top-6 left-6 flex items-center space-x-4 z-10">
-        <Link href="/" className="text-aged-bone hover:text-blood-red transition-colors">
-          <ArrowLeft size={32} strokeWidth={1.5} />
-          <span className="sr-only">Voltar para Home</span>
-        </Link>
-      </div>
-      {userCredits !== undefined && (
-        <div className="absolute top-6 right-6 flex items-center text-aged-bone/80 z-10">
-          <Coins size={20} className="mr-1.5 text-yellow-400" />
-          <span className="text-sm font-serifRegular">{userCredits} Créditos</span>
-        </div>
-      )}
+    <div className="bg-deep-black text-aged-bone flex flex-col items-center pt-6 sm:pt-8 pb-8 px-4 relative bg-noise-pattern">
 
       <div className="flex flex-col items-center mb-8 md:mb-12 text-center animate-fadeIn">
         <BookHeart className="w-16 h-16 md:w-20 md:h-20 text-blood-red/70 mb-3" strokeWidth={1.5} />

@@ -38,7 +38,13 @@ export default function AssinaturaPage() {
     // Redirect to login if not authenticated
     useEffect(() => {
         if (status === "unauthenticated") {
-            router.push('/login')
+            // Add a smooth transition effect before navigating
+            document.body.classList.add('page-transition-out')
+
+            // Delay navigation to allow transition effect to complete
+            setTimeout(() => {
+                router.push('/login')
+            }, 300)
         }
     }, [status, router])
 

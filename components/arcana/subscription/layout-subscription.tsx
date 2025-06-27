@@ -15,17 +15,17 @@ export function LayoutSubscription({ children, title, subtitle }: LayoutSubscrip
   const { t } = useIdioma()
 
   return (
-    <div className="min-h-screen bg-deep-black">
-      <header className="sticky top-0 z-40 flex items-center justify-between p-4 md:p-5 bg-deep-black/80 backdrop-blur-sm border-b border-b-blood-red/20">
+    <div className="bg-deep-black">
+      <div className="pt-4 md:pt-5 px-4 md:px-5 flex items-center">
         <Link href="/" className="text-aged-bone hover:text-blood-red transition-colors">
           <ArrowLeft size={28} strokeWidth={1.5} className="sm:w-8 sm:h-8" />
           <span className="sr-only">{t("history.back")}</span>
         </Link>
-        <h1 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-aged-bone animate-subtleGlow">
+        <h1 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-aged-bone animate-subtleGlow mx-auto">
           {t("subscription.layout.title")}
         </h1>
         <div className="w-10" />
-      </header>
+      </div>
 
       <main className="p-4 md:p-6 lg:p-8 bg-noise-pattern">
         <div className="max-w-4xl mx-auto">

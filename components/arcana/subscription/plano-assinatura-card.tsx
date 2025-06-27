@@ -101,8 +101,14 @@ export function PlanoAssinaturaCard({ plan, region, isAuthenticated }: PlanoAssi
     if (isAuthenticated) {
       setIsModalOpen(true)
     } else {
-      // Redirect to login page
-      router.push('/login')
+      // Redirect to login page with transition
+      // Add a smooth transition effect before navigating
+      document.body.classList.add('page-transition-out')
+
+      // Delay navigation to allow transition effect to complete
+      setTimeout(() => {
+        router.push('/login')
+      }, 300)
     }
   }
 

@@ -10,6 +10,8 @@ import { CreditsDisplay } from "./credits-display"
 import { SeletorIdioma } from "./seletor-idioma"
 import { useIdioma } from "@/contexts/idioma-context"
 import { useSession } from "next-auth/react"
+import { ArrowLeft } from "lucide-react"
+import Link from "next/link"
 
 interface HeaderProps {
   isAuthenticated?: boolean
@@ -18,6 +20,7 @@ interface HeaderProps {
   unreadNotifications?: number
   onNotificationsOpen?: () => void
   userImageUrl?: string
+  pathname?: string
 }
 
 export function Header({
@@ -27,6 +30,7 @@ export function Header({
   unreadNotifications = 0,
   onNotificationsOpen,
   userImageUrl,
+  pathname = "",
 }: HeaderProps) {
   const router = useRouter()
   const { t } = useIdioma()
@@ -43,47 +47,81 @@ export function Header({
     setUserImage(session?.user?.image || undefined)
   }, [session, status])
 
+  // Determine if we should show a page-specific header
+  const isPageSpecificHeader = pathname === "/history"
+
+  // Get page title based on pathname
+  const getPageTitle = () => {
+    if (pathname === "/history") return t("history.title")
+    return ""
+  }
+
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between p-4 md:p-5 bg-deep-black/80 backdrop-blur-sm border-b border-b-blood-red/20">
-      {/* Desktop Left Side - Language Selector */}
-      <div className="hidden md:flex items-center space-x-2">
-        <SeletorIdioma />
-      </div>
+    <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between p-4 md:p-5 bg-deep-black/80 backdrop-blur-sm border-b border-b-blood-red/20">
+      {isPageSpecificHeader ? (
+        // Page-specific header with back button and title
+        <>
+          <Link href="/" className="text-aged-bone hover:text-blood-red transition-colors">
+            <ArrowLeft size={28} strokeWidth={1.5} className="sm:w-8 sm:h-8" />
+            <span className="sr-only">{t("history.back")}</span>
+          </Link>
+          <h1 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-aged-bone animate-subtleGlow mx-auto">
+            {getPageTitle()}
+          </h1>
+          <div className="w-10" />
+        </>
+      ) : (
+        // Default header
+        <>
+          {/* Desktop Left Side - Language Selector */}
+          <div className="hidden md:flex items-center space-x-2">
+            <SeletorIdioma />
+          </div>
 
-      {/* Mobile & Desktop Center */}
-      <div className="flex flex-col items-center mx-auto md:mx-0">
-        <h1 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-aged-bone animate-subtleGlow">
-          {t("header.title")}
-        </h1>
-        {isAuthenticated && <CreditsDisplay credits={userCredits} className="hidden md:flex" />}
-      </div>
+          {/* Mobile & Desktop Center */}
+          <div className="flex flex-col items-center mx-auto md:mx-0">
+            <h1 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-aged-bone animate-subtleGlow">
+              {t("header.title")}
+            </h1>
+            {isAuthenticated && <CreditsDisplay credits={userCredits} className="hidden md:flex" />}
+          </div>
 
-      {/* Desktop Right Side - Login/Profile and Notifications */}
-      <div className="hidden md:flex items-center space-x-3">
-        {isAuthenticated ? (
-          <>
-            <NotificationBell 
-              notificationCount={unreadNotifications} 
-              onClick={onNotificationsOpen} 
-            />
-            <ProfileButton onClick={() => router.push("/profile")} imageUrl={userImage} />
-          </>
-        ) : (
-          <SmoothButton
-            variant="ghost"
-            size="sm"
-            className="text-aged-bone hover:bg-aged-bone/10 hover:text-aged-bone px-3 py-2"
-            onClick={() => router.push("/login")}
-          >
-            <span className="text-sm font-cinzel">{t("common.login")}</span>
-          </SmoothButton>
-        )}
-      </div>
+          {/* Desktop Right Side - Login/Profile and Notifications */}
+          <div className="hidden md:flex items-center space-x-3">
+            {isAuthenticated ? (
+              <>
+                <NotificationBell 
+                  notificationCount={unreadNotifications} 
+                  onClick={onNotificationsOpen} 
+                />
+                <ProfileButton onClick={() => router.push("/profile")} imageUrl={userImage} />
+              </>
+            ) : (
+              <SmoothButton
+                variant="ghost"
+                size="sm"
+                className="text-aged-bone hover:bg-aged-bone/10 hover:text-aged-bone px-3 py-2"
+                onClick={() => {
+                  // Add a smooth transition effect before navigating
+                  document.body.classList.add('page-transition-out')
 
-      {/* Mobile Menu Button */}
-      <div className="md:hidden">
-        <MobileMenu />
-      </div>
+                  // Delay navigation to allow transition effect to complete
+                  setTimeout(() => {
+                    router.push("/login")
+                  }, 300)
+                }}
+              >
+                <span className="text-sm font-cinzel">{t("common.login")}</span>
+              </SmoothButton>
+            )}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <MobileMenu />
+          </div>
+        </>
+      )}
     </header>
   )
 }
